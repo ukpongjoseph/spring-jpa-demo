@@ -1,0 +1,56 @@
+package dev.joseph.practice.student_management.school;
+
+
+import java.util.List;
+
+import dev.joseph.practice.student_management.student.Student;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "schoolTable")
+public class School {
+    @Id
+    @GeneratedValue
+    private int Id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "student")
+    private List<Student> student;
+
+
+    public School(String name, List<Student> student) {
+        this.name = name;
+        this.student = student;
+    }
+
+    public List<Student> getStudent() {
+        return student;
+    }
+
+    public void setStudent(List<Student> student) {
+        this.student = student;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+}
