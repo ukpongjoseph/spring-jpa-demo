@@ -19,13 +19,14 @@ public class School {
 
     private String name;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "school")
     private List<Student> student;
 
+    public School() {
+    }
 
-    public School(String name, List<Student> student) {
+    public School(String name) {
         this.name = name;
-        this.student = student;
     }
 
     public List<Student> getStudent() {

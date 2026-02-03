@@ -18,7 +18,7 @@ public class StudentProfile {
     private String profile;
     
     @OneToOne
-    @JoinColumn(name = "studentProfile")
+    @JoinColumn(name = "student_id")
     private Student student;
 
     public int getId() {
@@ -29,6 +29,9 @@ public class StudentProfile {
         Id = id;
     }
 
+
+    public StudentProfile() {
+    }
 
     public StudentProfile(String profile) {
         this.profile = profile;
