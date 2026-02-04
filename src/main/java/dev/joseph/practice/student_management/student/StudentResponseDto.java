@@ -2,7 +2,7 @@ package dev.joseph.practice.student_management.student;
 
 
 public record StudentResponseDto(
-    Integer Id,
+    // Integer Id,
     String name,
     String email
 ) {

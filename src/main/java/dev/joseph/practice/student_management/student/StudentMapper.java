@@ -12,14 +12,11 @@ public class StudentMapper {
         stud.setName(dto.name());
         stud.setEmail(dto.email());
         stud.setAge(dto.age());
-        // School studenSchool = new School();
-        // studenSchool.setId(dto.school_id());
-        // stud.setSchool(studenSchool);
         return stud;
     }
 
     public StudentResponseDto studentToResponseDto(Student stud){
-        StudentResponseDto responseDto = new StudentResponseDto(stud.getId(),stud.getName(), stud.getEmail());
+        StudentResponseDto responseDto = new StudentResponseDto(stud.getName(), stud.getEmail());
         return responseDto;
     }
 }
