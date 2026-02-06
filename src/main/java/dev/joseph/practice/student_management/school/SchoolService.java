@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -47,8 +48,10 @@ public class SchoolService {
         return mapper.schoolToSchoolResponseDto(repository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "School not found")));
     }
 
-    public void deleteAchool(Integer id){
+    // Here we return a status code of 200 and a response message body
+    public ResponseEntity<String> deleteAchool(Integer id){
         repository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("School deleted successfully");
     }
 
 }

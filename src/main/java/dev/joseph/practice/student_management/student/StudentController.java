@@ -2,8 +2,11 @@ package dev.joseph.practice.student_management.student;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +34,7 @@ public class StudentController {
     }
 
     @PostMapping("/students")
-    public StudentResponseDto saveStudent(@RequestBody StudentDto dto) {
+    public StudentResponseDto saveStudent(@Valid  @RequestBody StudentDto dto) {
         return service.saveStudent(dto);
     }
 
@@ -47,13 +50,14 @@ public class StudentController {
     }
     
     @PutMapping("/students/{Id}")
-    public StudentResponseDto updateAStudent(@PathVariable Integer Id, @RequestBody StudentDto update) {
+    public StudentResponseDto updateAStudent(@PathVariable Integer Id, @Valid  @RequestBody StudentDto update) {
         return service.updateAStudent(Id, update);
     }
 
+   
     @DeleteMapping("/students/{Id}")
-    public void deleteAStudent(@PathVariable Integer Id){
-        service.deleteAStudent(Id);
+    public ResponseEntity<String> deleteAStudent(@PathVariable Integer Id){
+       return service.deleteAStudent(Id);
     }
     
 }

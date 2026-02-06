@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -46,7 +47,9 @@ public class StudentService {
         return foundStudentResponseDto;
     }
 
-    public void deleteAStudent(Integer Id) {
+     // Here we return a status code of 204 (No content)..and as such the response body message would not show because when spring sees a 204, no conetnt status code...it ignores any response body
+    public ResponseEntity<String> deleteAStudent(Integer Id) {
         repository.deleteById(Id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Student deleted successfully");
     }
 }

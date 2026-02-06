@@ -2,6 +2,7 @@ package dev.joseph.practice.student_management.student;
 
 import dev.joseph.practice.student_management.school.School;
 import dev.joseph.practice.student_management.studentProfile.StudentProfile;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,8 +22,13 @@ public class Student {
     @GeneratedValue
     private Integer Id;
 
+
     private String name;
 
+    @Column(
+        unique = true,
+        nullable = false
+    )
     private String email;
 
     private int age;

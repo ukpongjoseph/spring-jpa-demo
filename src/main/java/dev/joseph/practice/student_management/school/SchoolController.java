@@ -2,12 +2,14 @@ package dev.joseph.practice.student_management.school;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,7 +29,9 @@ public class SchoolController {
     }
     
     @PostMapping("/schools")
-    public SchoolResponseDto createSchool(@RequestBody SchoolDto dto) {
+    public SchoolResponseDto createSchool(
+        
+      @Valid  @RequestBody SchoolDto dto) {
         return service.createSchool(dto);
     }
 
@@ -37,7 +41,7 @@ public class SchoolController {
     }
     
     @PutMapping("schools/{id}")
-    public SchoolResponseDto updateASchool(@PathVariable Integer id, @RequestBody SchoolDto dto) {
+    public SchoolResponseDto updateASchool(@PathVariable Integer id, @Valid @RequestBody SchoolDto dto) {
         return service.updateASchool(dto, id);
     }
     
@@ -47,8 +51,10 @@ public class SchoolController {
     }
 
     @DeleteMapping("/schools/{Id}")
-    public void deleteAchool(@PathVariable Integer Id){
-        service.deleteAchool(Id);
+    public ResponseEntity<String> deleteAchool(@PathVariable Integer Id){
+        return service.deleteAchool(Id);
     }
+
+    
     
 }
