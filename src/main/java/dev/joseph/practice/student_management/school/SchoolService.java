@@ -1,6 +1,7 @@
 package dev.joseph.practice.student_management.school;
 
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -8,15 +9,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import dev.joseph.practice.student_management.student.StudentMapper;
+import dev.joseph.practice.student_management.student.StudentResponseDto;
+
 @Service
 public class SchoolService {
     
     private SchoolRepository repository;
     private SchoolMapper mapper;
+    private StudentMapper mapper2;
 
-    public SchoolService(SchoolRepository repository, SchoolMapper mapper){
+    public SchoolService(SchoolRepository repository, SchoolMapper mapper, StudentMapper mapper2){
         this.repository = repository;
         this.mapper = mapper;
+        this.mapper2 = mapper2;
     }
 
     public SchoolResponseDto createSchool(SchoolDto dto){
@@ -52,6 +58,15 @@ public class SchoolService {
     public ResponseEntity<String> deleteAchool(Integer id){
         repository.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("School deleted successfully");
+    }
+
+    public List<StudentResponseDto> fetAllStudentsInASchool(Integer schoolId){
+        School foundSchool = repository.findById(schoolId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "School Not Found"));
+        return foundSchool
+            .getStudentList()
+            .stream()
+            .map((item)->mapper2.studentToResponseDto(item))
+            .collect(Collectors.toList());
     }
 
 }

@@ -5,5 +5,6 @@ public record StudentResponseDto(
     // Integer Id,
     String name,
     String email
+    // String schoolName
 ) {
 } 

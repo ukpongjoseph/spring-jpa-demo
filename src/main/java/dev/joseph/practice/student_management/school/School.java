@@ -31,12 +31,12 @@ public class School {
         this.name = name;
     }
 
-    public List<Student> getStudent() {
+    public List<Student> getStudentList() {
         return student;
     }
 
-    public void setStudent(List<Student> student) {
-        this.student = student;
+    public void addStudentToList(Student stud) {
+        this.student.add(stud);
     }
 
     public int getId() {

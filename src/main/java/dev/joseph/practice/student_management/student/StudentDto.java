@@ -17,6 +17,8 @@ public record StudentDto(
     @NotNull
     @Min(value = 12)
     @Max(value = 19)
-    int age
+    int age,
+
+    Integer schoolId
 ) {
 }

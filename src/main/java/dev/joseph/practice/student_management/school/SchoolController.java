@@ -2,6 +2,7 @@ package dev.joseph.practice.student_management.school;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.joseph.practice.student_management.student.StudentResponseDto;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -55,6 +58,11 @@ public class SchoolController {
         return service.deleteAchool(Id);
     }
 
+    // The whole idea of this controller is to fetch the list of all students in a school. We would be needing a schoolId. The flow is to fetch a school in its School form, then call the class method to get list of all students. Pass this list through a stream and then return a List of studentResponseDto
+    @GetMapping("schools/{schoolId}/all_students")
+    public List<StudentResponseDto> getListOfAllStudents(@PathVariable Integer schoolId) {
+        return service.fetAllStudentsInASchool(schoolId);
+    }
     
     
 }

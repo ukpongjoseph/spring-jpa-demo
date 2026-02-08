@@ -8,19 +8,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import dev.joseph.practice.student_management.school.School;
+import dev.joseph.practice.student_management.school.SchoolRepository;
+
 @Service
 public class StudentService {
     private StudentRepository repository;
+    private SchoolRepository repository2;
     private StudentMapper mapper;
 
-    public StudentService(StudentRepository repository, StudentMapper mapper){
+    public StudentService(StudentRepository repository, StudentMapper mapper, SchoolRepository repo){
         this.repository = repository;
         this.mapper = mapper;
+        this.repository2 = repo;
     }
 
+    // After creating a student with the necessary details one of which is the school details. We would add the student to the school list of students. Question is how? In the dto, we have the the schoolId..we can use the schoolId to fetch the the school and then add the student to the list of students under the school
     public StudentResponseDto saveStudent(StudentDto dto){
         Student student = mapper.dtoToStudent(dto);
         Student savedStudent = repository.save(student);
+        School school = repository2.findById(dto.schoolId()).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "School Not Found"));
+        school.addStudentToList(savedStudent);
         return mapper.studentToResponseDto(savedStudent);
     }
 
